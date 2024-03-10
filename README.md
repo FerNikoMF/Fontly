@@ -43,8 +43,8 @@ python main.py
 
 ## Скриншоты
 
-![Скриншот 1]([https://example.com/screenshot1.png](https://i.imgur.com/GI5YfjC.png))
-![Скриншот 2]([https://example.com/screenshot2.png](https://i.imgur.com/vWlEyeP.png))
+![Скриншот 1](https://i.imgur.com/GI5YfjC.png)
+![Скриншот 2](https://i.imgur.com/vWlEyeP.png)
 
 ## Ссылки
 
