@@ -1,7 +1,8 @@
 # Fontly
 ```markdown
+# Fontly
 
-![Fontly Logo](resource/images/logo.png)
+![Fontly Logo](https://example.com/fontly_logo.png)
 
 Fontly - это удобный инструмент для быстрой 
 установки шрифтов на вашем компьютере. Прост в использовании,
