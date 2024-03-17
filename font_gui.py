@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QFileDialog, QProgressBar, QMessageBox
 from PyQt6.QtGui import QIcon, QFont, QPalette, QColor, QMovie
 from PyQt6.QtCore import QTimer, Qt
@@ -41,7 +42,6 @@ class FontInstallerUI(QWidget):
         self.movie = QMovie("resource/images/red.gif")
         self.movie.setScaledSize(self.size())
         self.gif_label.setMovie(self.movie)
-        self.movie.start()
         self.layout.addWidget(self.gif_label)
 
         self.progress_bar = QProgressBar()
@@ -55,7 +55,7 @@ class FontInstallerUI(QWidget):
             }
             QProgressBar::chunk {
                 background-color: #0674ff;
-                order-radius: 6px;
+                border-radius: 6px;
                 width: 16px;
             }
         """)
@@ -64,6 +64,9 @@ class FontInstallerUI(QWidget):
 
         self.progress_counter = QLabel("0%")
         self.layout.addWidget(self.progress_counter, alignment=Qt.AlignmentFlag.AlignCenter)
+
+        self.folder_label = QLabel("")
+        self.layout.addWidget(self.folder_label, alignment=Qt.AlignmentFlag.AlignCenter)
 
         self.browse_button = QPushButton("Обзор...")
         self.browse_button.setMinimumWidth(170)
@@ -93,14 +96,16 @@ class FontInstallerUI(QWidget):
     def browse_folder(self):
         folder_path = QFileDialog.getExistingDirectory(self, "Выберите папку с шрифтами")
         if folder_path:
+            folder_name = os.path.basename(folder_path)
+            self.folder_label.setText(f"Устанавливаются шрифты из папки: {folder_name}")
             self.start_progress(folder_path)
+            self.timer.start(100)  # Запускаем таймер для обновления прогресса
 
     def start_progress(self, folder_path):
         self.font_count = 0
         self.error_count = 0
         self.progress_bar.setValue(0)
         self.progress_counter.setText("0%")
-        self.timer.start(100)
         self.font_count = install_fonts_from_folder(folder_path)
 
     def update_progress(self):
